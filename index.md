@@ -115,7 +115,7 @@ and for the files mothur uses for reference.
 
 So, your setup will look like this:
 
-
+![project-setup.png](img/project-setup.png)
 
 
 ### The mothur MiSeq SOP
@@ -130,7 +130,7 @@ http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip
 
 And the reference files from:
 
-http://www.mothur.org/w/images/9/98/Silva.bacteria.zip
+http://www.mothur.org/w/images/9/98/Silva.bacteria.zip  
 http://www.mothur.org/w/images/5/59/Trainset9_032012.pds.zip
 
 You also are welcome to use your own data as we go through things, but if you have too much data, each step
