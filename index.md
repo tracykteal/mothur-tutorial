@@ -1,5 +1,6 @@
 ---
 layout: lesson
+root: .
 title: mothur tutorial
 date: 2015-07-08
 ---
