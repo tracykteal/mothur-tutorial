@@ -13,13 +13,14 @@ Real-time notes for the class.  These will stay there after the workshop too.
 <br>Etherpad:  https://etherpad.mozilla.org/Hj6zW6Ni3h
 
 shell cheat sheets:<br>
-* http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/
-* https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md
+[http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
+
+[https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md](https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md)
 
 ### Overview of mothur
 What you can use it for and what is the workflow in slides
 
-http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf
+[http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf](http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf)
 
 
 #### Running mothur
