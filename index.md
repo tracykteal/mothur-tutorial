@@ -274,6 +274,61 @@ Now we have a new shared file that has been subsampled. If we did the subsamplin
 Go ahead and try it. Open up your new shared file. Rerun the subsampling and see if the re-subsampled one looks the same.
 This is easiest if you're running it on your own computer. Pair up with someone who is if you're not.
 
+### Others things to do with mothur (if you're really working with it)
+
+#### Exploring parameter space
+
+Let's say that instead of using the 0.03 cutoff when you make your shared file, you want to use 0.05?
+
+By default if you run the same command with a different parameter it just overwrites the previous files. 
+Try running 
+
+   `mothur > make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
+
+and see.
+
+Rerun it again with 0.03 to get it back to where it was.
+
+Instead you can redirect the output to a new folder with set.dir. Let's try it. We'll tell mothur
+to use the input directory 'analyses/first' where we have all the files that have been 
+generated already, then we'll set a new output directory.
+
+   `set.dir(input=../analyses/first, output=../analyses/second)`
+
+Then run
+
+   `mothur > make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
+
+Ta da, the 0.05 file is now in 'second'. You can do this sort of thing anywhere along the path. Instead
+of explicitly setting the output and input, you can also point to an input file directly.
+
+   `mothur > make.shared(list=../analyses/first/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=../analyses/first/stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
+
+### Running mothur in batch mode
+
+Once you've run through mothur with your shiny new data, you're get to a point where 
+you're happy with a certain set of parameters. Now you might want to set mothur up in batch mode.
+That's where you make a file with a bunch of commands and then just run that file.
+
+We have one of those files already in our data directory: stability.batch
+
+When you're doing this the fact that mothur remembers what files you used last is great, because
+you don't have to type it all out.
+
+Let's try making our own. On Mac you can use nano or emacs. On PC you can use something in MobaXterm
+or SublimeText.
+
+Put the first couple of commands we run in to a file, along with comments about what we are doing.
+
+
+    #set input and output directory  
+    set.dir(input=~/Desktop/mothur-project/data/MiSeq_SOP, output=~/Desktop/mothur-project/analyses/first)  
+    #make contigs  
+    make.contigs(file=stability.files, processors=8)
+
+
+We're using the 'full path' of the file names here so there's no confusion.
+
 ### Looking at some of this data
 
 PAST - a GUI statistical package developed by Oyvind Hammer  
