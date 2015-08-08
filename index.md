@@ -13,6 +13,8 @@ Tracy Teal <tkteal@datacarpentry.org> @tracykteal
 Real-time notes for the class.  These will stay there after the workshop too.
 <br>Etherpad:  https://etherpad.mozilla.org/Hj6zW6Ni3h
 
+Data file: [https://www.dropbox.com/s/82df7ofpgbjo7wh/stability.subsample.shared?dl=0](https://www.dropbox.com/s/82df7ofpgbjo7wh/stability.subsample.shared?dl=0)
+
 shell cheat sheets:<br>
 [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
 
