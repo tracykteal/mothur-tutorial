@@ -184,12 +184,16 @@ There are a few commands that are different using the Amazon AMI than in the MiS
 
 - The **pcr.seqs** command is different than in the SOP because of updated databases
 
+      ```
       pcr.seqs(fasta=../references/silva.seed_v123.align, start=11894, end=25319, keepdots=F, processors=8)
       system(mv silva.seed_v123.pcr.align silva.v4.fasta)
+      ```
 
 - The first **classify.seqs** command is different than the SOP because there are updated databases
 
+      ```
       classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=../references/trainset14_032015.pds.fasta, taxonomy=../references/trainset14_032015.pds.tax, cutoff=80)
+      ```
 
 - We'll skip the Assessing error rates section
 
@@ -211,10 +215,10 @@ There's been a lot of discussion of what to do with the raw counts:
 For this lesson we're going to subsample
 
 See how many sequences we have  
-`mothur > count.groups()`
+   `mothur > count.groups()`
 
 Lowest is 2451, so we'll subsample to that size  
-`mothur > sub.sample(shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared, size=2451)`  
+   `mothur > sub.sample(shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared, size=2451)`  
 Now we have a new shared file that has been subsampled. If we did the subsampling again, we'd actually get a different new shared file.  
 
 ** Exercise
