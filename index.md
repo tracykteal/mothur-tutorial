@@ -11,7 +11,7 @@ Instructor:
 Tracy Teal <tkteal@datacarpentry.org> @tracykteal
 
 Real-time notes for the class.  These will stay there after the workshop too.
-<br>Etherpad:  https://public.etherpad-mozilla.org/p/mothur-stamps2016
+<br>Etherpad:  [https://public.etherpad-mozilla.org/p/mothur-stamps2016](https://public.etherpad-mozilla.org/p/mothur-stamps2016)
 
 shell cheat sheets:<br>
 [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
