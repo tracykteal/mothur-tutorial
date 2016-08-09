@@ -106,8 +106,10 @@ about that later.
 The 'data' directory has the data we'll use for this tutorial. Let's go into
 that directory.
 
+   ```
    cd data
    ls
+   ```
 
 Now, we see we have 'mothur', 'process', 'raw' and 'references'. 'raw' are all our 
 raw data. 'process' will be where we do this analysis. 'references' are the 
