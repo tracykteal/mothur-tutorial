@@ -46,7 +46,7 @@ You could even start something and then close your computer and go home, or I me
 go do some lab work. Also a lot of these analyses are just too computationally 
 intensive to run on your own computer.
 
-[Connecting to mothur Amazon AMI](/cloud-computing/)
+[Connecting to mothur Amazon AMI](https://github.com/tracykteal/mothur-tutorial/blob/gh-pages/cloud-genomics/index.md)
 
 #### Starting mothur
 
