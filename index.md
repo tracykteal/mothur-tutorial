@@ -11,9 +11,7 @@ Instructor:
 Tracy Teal <tkteal@datacarpentry.org> @tracykteal
 
 Real-time notes for the class.  These will stay there after the workshop too.
-<br>Etherpad:  https://etherpad.mozilla.org/Hj6zW6Ni3h
-
-Data file: [https://www.dropbox.com/s/82df7ofpgbjo7wh/stability.subsample.shared?dl=0](https://www.dropbox.com/s/82df7ofpgbjo7wh/stability.subsample.shared?dl=0)
+<br>Etherpad:  https://public.etherpad-mozilla.org/p/mothur-stamps2016
 
 shell cheat sheets:<br>
 [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
@@ -28,7 +26,19 @@ What you can use it for and what is the workflow in slides
 
 #### Running mothur
 You can run mothur on your own computer or an a remote computer. For this 
-exercise we'll run it on your own computer, but in practice, you'll need 
+exercise we'll be running it on Amazon EC2 instances. I've set up the instances for 
+this course, but there are great instructions for setting up your own instances.
+
+[mothur AMI](http://mothur.org/wiki/Mothur_AMI)
+
+The biggest constrainst with mothur when working with large data files is memory, so
+when you work with your own data, you might need to get more memory. Most analyses 
+will need more computational power than your own computer, so you'll need something
+like Amazon instances or your local HPC. 
+
+#### Using and connecting to Amazon cloud computing for mothur
+
+While you can run mothur on your own computer, in practice, you'll need 
 to run it on a computer with more computational power, like on Amazon EC2
 or computers at your university. The advantage of this is that it's not taking 
 up computational resources on your own computer.
@@ -36,35 +46,13 @@ You could even start something and then close your computer and go home, or I me
 go do some lab work. Also a lot of these analyses are just too computationally 
 intensive to run on your own computer.
 
-**Running it on your own computer**
+[Connecting to mothur Amazon AMI](/cloud-computing/)
 
-Download mothur and install it from:
+#### Starting mothur
 
-[http://www.mothur.org/wiki/Download_mothur](http://www.mothur.org/wiki/Download_mothur)
-<br>(we're not going to talk about the GUI version)
-
-You can also run mothur from within IPython Notebook with ipython-mothurmagic
-
-[https://github.com/SchlossLab/ipython-mothurmagic](https://github.com/SchlossLab/ipython-mothurmagic)
-
-Once you have it installed, on Mac, open a terminal, go in to the directory where you installed mothur
-and type
-
-   ./mothur
-
-On Windows, double click on mothur and it will open a terminal with mothur.
-
-**Running it on the MBL servers***
-
-If you're on the servers, they uses the module system, so type  
-
-   `module load mothur`
-
-And then type  
+Tyep
 
    `mothur`  
-
----
 
 Now you're in mothur, and we can start!  
 You should get the command prompt  
@@ -100,24 +88,42 @@ Computational processes need lab notebooks just like lab work.
 In mothur if you run an analysis with different parameters in the same directory,
 it will write over your old analysis.
 
-mothur does always write out logfiles, so you can keep track with those some.
+mothur does always write out logfiles, so you can keep track with those some. We'll 
+look at those after we've run some commands.
 
-### mothur example
+### Exploring the data
 
-First let's create a directory for our analysis. mothur generates a lot of files,
-so it's best to create a new directory for each analysis.
+Let's take a look at the data we have and how it's organized.
 
-We'll want folders for our raw data, for our files that generated during the analysis 
-and for the files mothur uses for reference. 
+Go into the 'process' directory.
 
-- On your Desktop or somewhere, create a directory 'mothur-project'
-- Go in to that directory and create the directories 'data' and 'analyses'
-- Move the 'mothur' folder that has the mothur program in
-- Move the reference files in to the 'mothur' directory
+   cd data/process
 
-So, your setup will look like this:
+Start mothur
 
-![project-setup.png](img/project-setup.png)
+   mothur
+
+Now we'll follow the [mothur MiSeq SOP](http://www.mothur.org/wiki/MiSeq_SOP).
+
+First we'll set the directory where we want mothur to look for data by default
+and set the output directory using the [set.dir command](http://www.mothur.org/wiki/Set.dir)
+
+    set.dir(input=../raw)
+    set.dir(output=.)
+    
+Now we'll make the file that has the information for all of our reads
+
+    make.file(inputdir=../raw, type=gz)
+
+Now we'll take the unpaired reads and pair them, using the information 
+in the file we just generated.
+
+    make.contigs(file=../code/stability.files, processors=8)
+
+   
+
+
+
 
 
 ### The mothur MiSeq SOP
