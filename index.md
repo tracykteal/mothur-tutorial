@@ -2,7 +2,7 @@
 layout: lesson
 root: .
 title: mothur tutorial
-date: 2015-07-08
+date: 2016-07-09
 ---
 
 
@@ -50,7 +50,7 @@ intensive to run on your own computer.
 
 #### Starting mothur
 
-Tyep
+Type
 
    `mothur`  
 
@@ -95,15 +95,36 @@ look at those after we've run some commands.
 
 Let's take a look at the data we have and how it's organized.
 
+We have three directories: 'code', 'data' and 'R'. 
+
+The 'R' directory has the information for running R on these instances. 
+We aren't going to do anything with that. 
+
+The 'code' directory has the code for running the batch file. We'll talk
+about that later.
+
+The 'data' directory has the data we'll use for this tutorial. Let's go into
+that directory.
+
+   cd data
+   ls
+
+Now, we see we have 'mothur', 'process', 'raw' and 'references'. 'raw' are all our 
+raw data. 'process' will be where we do this analysis. 'references' are the 
+reference files. 'mothur' are files for running mothur. We can see that we have
+a bunch of gzipped FASTQ files in the 'raw' directory. We're going to get started
+by getting this data in the format we need.
+
+### Starting to work with mothur
+
 Go into the 'process' directory.
 
+   cd
    cd data/process
 
 Start mothur
 
    mothur
-
-Now we'll follow the [mothur MiSeq SOP](http://www.mothur.org/wiki/MiSeq_SOP).
 
 First we'll set the directory where we want mothur to look for data by default
 and set the output directory using the [set.dir command](http://www.mothur.org/wiki/Set.dir)
@@ -115,99 +136,25 @@ Now we'll make the file that has the information for all of our reads
 
     make.file(inputdir=../raw, type=gz)
 
-Now we'll take the unpaired reads and pair them, using the information 
-in the file we just generated.
+We're going to rename that file, so it has the same name as in the 
+mothur MiSeq SOP, for convenience. The command 'system' in mothur let's us 
+do the normal things we would do at the command line.
 
-    make.contigs(file=../code/stability.files, processors=8)
+    system(mv fileList.paired.file stability.files)
 
-   
-
-
-
-
-
-### The mothur MiSeq SOP
-
-Go to the mothur MiSeq SOP. This is what we're going to go through.  
-
-[http://www.mothur.org/wiki/MiSeq_SOP](http://www.mothur.org/wiki/MiSeq_SOP)
-
-We're using the data from:
-
-http://www.mothur.org/w/images/d/d6/MiSeqSOPData.zip
-
-And the reference files from:
-
-http://www.mothur.org/w/images/9/98/Silva.bacteria.zip  
-http://www.mothur.org/w/images/5/59/Trainset9_032012.pds.zip
-
-You also are welcome to use your own data as we go through things, but if you have too much data, each step
-might take longer than we have planned.
-
-We already have the files we need for this example, but let's take a look at some of them.  
-
-To see what files you have type `ls`  
-Now you see a list of files.
-We have the fastq files.  Those are the files you get back from the sequencing center. 
-Let's take a look at those.  
-
-   `less F3D0_S188_L001_R1_001.fastq`
-
-
-Then you have the stability.files file.  
-That is a file that tells mothur what paired end sequences go together and what the sample name is.  
-Let's take a look at that file.  
-
-   `less stability.files`
-
+The file we just generated looks like this:
 
 ![stablility.files](img/stability.jpg)
 
 You can see that the format is a tab delimited file with the sample name in the first column,
 the forward read in the second column and the paired end read in the third column.  
-You could create this file in Excel, then save it as a tab-delimited file.
-It doesn't have to be called stability.file.  You can call it whatever you want.  The 'stability' part is just what it's named in the example.
 
+(Optional: close the tmux window and look at the stablity.files file with 'less')
 
-Now let's start mothur again.  
+Now we'll take the unpaired reads and pair them, using the information 
+in the file we just generated.
 
-If you're on the servers, you can just type  
-`mothur`  
-
-If you're on your own computer, go in to the directory with mothur. Then type
-
-  ./mothur
-
-And we're back in mothur.
-
-The first thing we're going to do is to tell mothur where to look for the input files
-and where to put the analysis files, using 'set.dir'
-
-http://www.mothur.org/wiki/Set.dir
-
-Set the input to where the data files are and the output to where you want the analyzed 
-files to go.
-
-It will create the 'first' directory, so this is a great way, if you're starting a new
-analysis with different parameters to put them somewhere else.
-
-   mothur > set.dir(input=../data/MiSeq_SOP, output=../analyses/first) 
-
-
-
-
-
-Now let's start going through the protocol  
-** Often the summary.seqs() commands take awhile.  Just wait and eventually you'll get the result
-
-We're following the MiSeq SOP now, but we'll go through the first few commands, so that you can see how to access the data
-and get the results file in your directory.
-
-
-First we'll combine the paired-end reads together.  
-For this we need the FASTQ files and the stability.files file that tells mothur what reads go together.
-
-  `mothur > make.contigs(file=stability.files, processors=8)`
+    make.contigs(file=stability.files, processors=8)
 
 You'll wait a bit, and get some output.  
 Four files will be created:  
@@ -219,12 +166,38 @@ stability.scrap.contigs.fasta - sequences that didn't pair
 * files are ones that will be used in downstream analysis.  
 In general, the *.fasta and *.groups files are the ones you'll need in the next steps.
 
---------- BREAK -------------  
+### BREAK
+
 We're going to pause here and when we come back, we'll start going through the workflow
 
-Notes along the workflow
 
-At the pcr.seqs command, we're not going to rename the file, so the next command is:
+### The mothur MiSeq SOP
+
+Go to the mothur MiSeq SOP. This is what we're going to go through.  
+
+[http://www.mothur.org/wiki/MiSeq_SOP](http://www.mothur.org/wiki/MiSeq_SOP)
+
+Now let's start going through the protocol  
+** Often the summary.seqs() commands take awhile.  Just wait and eventually you'll get the result
+
+**Notes along the workflow**
+
+- The pcr.seqs command is different than in the SOP because of updated databases
+
+    pcr.seqs(fasta=../references/silva.seed_v123.align, start=11894, end=25319, keepdots=F, processors=8)
+    
+
+The classify.seqs command is different than the SOP because there are updated databases
+
+    classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=../references/trainset14_032015.pds.fasta, taxonomy=../references/trainset14_032015.pds.tax, cutoff=80
+
+- We'll skip the Assessing error rates section
+
+- We'll skip the Phylotypes and Phylogenetic sections
+
+- We'll stop after the Alpha diversity section
+
+
 
    align.seqs(fasta=stability.trim.contigs.good.unique.fasta, reference=silva.bacteria.pcr.fasta)
 
