@@ -215,10 +215,10 @@ There's been a lot of discussion of what to do with the raw counts:
 For this lesson we're going to subsample
 
 See how many sequences we have  
-   `mothur > count.groups()`
+   `count.groups()`
 
 Lowest is 2451, so we'll subsample to that size  
-   `mothur > sub.sample(shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared, size=2451)`  
+   `sub.sample(shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared, size=2451)`  
 Now we have a new shared file that has been subsampled. If we did the subsampling again, we'd actually get a different new shared file.  
 
 ** Exercise
@@ -235,7 +235,7 @@ Let's say that instead of using the 0.03 cutoff when you make your shared file, 
 By default if you run the same command with a different parameter it just overwrites the previous files. 
 Try running 
 
-   `mothur > make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
+   `make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
 
 and see.
 
@@ -245,17 +245,19 @@ Instead you can redirect the output to a new folder with set.dir. Let's try it. 
 to use the input directory 'analyses/first' where we have all the files that have been 
 generated already, then we'll set a new output directory.
    
-   `system(mkdir ~/data/second)` 
-   `set.dir(input=~/data/process, output=../data/second)`
+   ```
+   system(mkdir ~/data/second)
+   set.dir(input=~/data/process, output=../data/second)
+   ```
 
 Then run
 
-   `mothur > make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
+   `make.shared(list=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
 
 Ta da, the 0.05 file is now in 'second'. You can do this sort of thing anywhere along the path. Instead
 of explicitly setting the output and input, you can also point to an input file directly.
 
-   `mothur > make.shared(list=~/data/process/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=~/data/process/stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
+   `make.shared(list=~/data/process/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.list, count=~/data/process/stability.trim.contigs.good.unique.good.filter.unique.precluster.uchime.pick.pick.pick.count_table, label=0.05)`
 
 ### Running mothur in batch mode
 
@@ -273,12 +275,12 @@ or SublimeText.
 
 Put the first couple of commands we run in to a file, along with comments about what we are doing.
 
-
+```
     #set input and output directory  
     set.dir(input=~/Desktop/mothur-project/data/MiSeq_SOP, output=~/Desktop/mothur-project/analyses/first)  
     #make contigs  
     make.contigs(file=stability.files, processors=8)
-
+```
 
 We're using the 'full path' of the file names here so there's no confusion.
 
