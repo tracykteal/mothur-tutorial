@@ -199,6 +199,22 @@ There are a few commands that are different using the Amazon AMI than in the MiS
 
 Creating the distance matrix and doing the clustering are the time and memory intensive steps.
 
+Once you're done with these steps, you'll have a "shared" file. This is the file that's generated.
+
+**The shared file!**
+
+If something didn't work along the way, you can use this file for future steps.
+
+[stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared](stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared)
+
+To get it on to your Amazon EC2 instance use:
+
+```
+curl -o stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared https://raw.githubusercontent.com/tracykteal/mothur-tutorial/gh-pages/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared  
+```
+
+### Working with the OTU table (the shared file)
+
 Once we create the shared file, there are several things we can do.
 Let's take a look at the shared file though. Let's open it in Excel.
 [stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared](img/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared)
