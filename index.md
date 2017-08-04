@@ -14,7 +14,7 @@ Tracy Teal <tkteal@datacarpentry.org> @tracykteal
 ### Overview of mothur
 What you can use it for and what is the workflow in slides:
 
-[http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf](http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf)
+[http://tracykteal.github.io/mothur-tutorial/mothur_presentation_2017.pdf](http://tracykteal.github.io/mothur-tutorial/mothur_presentation_2017.pdf)
 
 
 #### Running mothur
