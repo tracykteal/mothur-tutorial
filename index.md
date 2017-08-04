@@ -2,7 +2,7 @@
 layout: lesson
 root: .
 title: mothur tutorial
-date: 2016-07-09
+date: 2017-08-04
 ---
 
 
@@ -10,43 +10,16 @@ date: 2016-07-09
 Instructor:
 Tracy Teal <tkteal@datacarpentry.org> @tracykteal
 
-Real-time notes for the class.  These will stay there after the workshop too.
-<br>Etherpad:  [https://public.etherpad-mozilla.org/p/mothur-stamps2016](https://public.etherpad-mozilla.org/p/mothur-stamps2016)
-
-shell cheat sheets:<br>
-[http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
-
-[https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md](https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md)
 
 ### Overview of mothur
-What you can use it for and what is the workflow in slides
+What you can use it for and what is the workflow in slides:
 
 [http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf](http://tracykteal.github.io/mothur-tutorial/mothur_stamps_presentation.pdf)
 
 
 #### Running mothur
 You can run mothur on your own computer or an a remote computer. For this 
-exercise we'll be running it on Amazon EC2 instances. I've set up the instances for 
-this course, but there are great instructions for setting up your own instances.
-
-[mothur AMI](http://mothur.org/wiki/Mothur_AMI)
-
-The biggest constrainst with mothur when working with large data files is memory, so
-when you work with your own data, you might need to get more memory. Most analyses 
-will need more computational power than your own computer, so you'll need something
-like Amazon instances or your local HPC. 
-
-#### Using and connecting to Amazon cloud computing for mothur
-
-While you can run mothur on your own computer, in practice, you'll need 
-to run it on a computer with more computational power, like on Amazon EC2
-or computers at your university. The advantage of this is that it's not taking 
-up computational resources on your own computer.
-You could even start something and then close your computer and go home, or I mean 
-go do some lab work. Also a lot of these analyses are just too computationally 
-intensive to run on your own computer.
-
-[Connecting to mothur Amazon AMI](https://github.com/tracykteal/mothur-tutorial/blob/gh-pages/cloud-genomics/index.md)
+exercise we'll be running it on the MBL servers.
 
 #### Starting mothur
 
@@ -95,128 +68,38 @@ look at those after we've run some commands.
 
 Let's take a look at the data we have and how it's organized.
 
-We have three directories: 'code', 'data' and 'R'. 
-
-The 'R' directory has the information for running R on these instances. 
-We aren't going to do anything with that. 
-
-The 'code' directory has the code for running the batch file. We'll talk
-about that later.
-
-The 'data' directory has the data we'll use for this tutorial. Let's go into
-that directory.
 
    ```
-   cd data
+   cd mothhur_data
    ls
    ```
 
-Now, we see we have 'mothur', 'process', 'raw' and 'references'. 'raw' are all our 
-raw data. 'process' will be where we do this analysis. 'references' are the 
-reference files. 'mothur' are files for running mothur. We can see that we have
-a bunch of gzipped FASTQ files in the 'raw' directory. We're going to get started
-by getting this data in the format we need.
+We have all our files in 'MiSeq_SOP'. There are the FASTQ files from the experiment, as well as some reference files
+we need for the analysis. We will end up with a lot of files in this one directory. We'll organize things a bit at the end.
 
-### Starting to work with mothur
-
-Go into the 'process' directory.
-
-   ```
-   cd
-   cd data/process
-   ```
-
-Start mothur
-
-   `mothur`
-
-First we'll set the directory where we want mothur to look for data by default
-and set the output directory using the [set.dir command](http://www.mothur.org/wiki/Set.dir)
-
-    set.dir(input=../raw)
-    set.dir(output=.)
-    
-Now we'll make the file that has the information for all of our reads
-
-    make.file(inputdir=../raw, type=gz)
-
-We're going to rename that file, so it has the same name as in the 
-mothur MiSeq SOP, for convenience. The command 'system' in mothur let's us 
-do the normal things we would do at the command line.
-
-    system(mv fileList.paired.file stability.files)
-
-The file we just generated looks like this:
+The file that you need to create before any analysis, is a list of the samples and the sequences associated with those samples. Here it's called **stability.files** but you can call it anything. It looks like this.
 
 ![stability.files](img/stability.jpg)
 
 You can see that the format is a tab delimited file with the sample name in the first column,
 the forward read in the second column and the paired end read in the third column.  
 
-(Optional: close the tmux window and look at the stability.files file with 'less')
+(Optional: look at the stability.files file with 'less')
 
-Now we'll take the unpaired reads and pair them, using the information 
-in the file we just generated.
+### Starting to work with mothur
 
-    make.contigs(file=stability.files, processors=8)
+Working with mothur, we're going to follow the [mothur MiSeq SOP](https://www.mothur.org/wiki/MiSeq_SOP).
 
-You'll wait a bit, and get some output.  
-Four files will be created:  
-* stability.trim.contigs.fasta - the FASTA file of the assembled paired end sequences
-* stability.contigs.report  - a report for each assembled contig of the overlap and number of Ns
-* stability.scrap.contigs.fasta - sequences that didn't pair
-* stability.contigs.groups - a file with information on what sequence belongs to what sample
+The command we'll use on the MBL server are here.
 
-In general, the *.fasta and *.groups files are the ones you'll need in the next steps.
+**Follow along on this document**: [MBL mothur MiSeq SOP](https://hackmd.io/EwVgnAxmYMwGwFo4HYBGEEBYQBMOuR2C2QA4AGZaAU2GTSA=?view)
 
-### BREAK
-
-We're going to pause here and when we come back, we'll start going through the workflow
-
-
-### The mothur MiSeq SOP
-
-Go to the mothur MiSeq SOP. This is what we're going to go through.  
-
-[http://www.mothur.org/wiki/MiSeq_SOP](http://www.mothur.org/wiki/MiSeq_SOP)
-
-There are a few commands that are different using the Amazon AMI than in the MiSeq_SOP. They are 
-
-- The **pcr.seqs** command is different than in the SOP because of updated databases
-
-      ```
-      pcr.seqs(fasta=../references/silva.seed_v123.align, start=11894, end=25319, keepdots=F, processors=8)
-      system(mv silva.seed_v123.pcr.align silva.v4.fasta)
-      ```
-
-- The first **classify.seqs** command is different than the SOP because there are updated databases
-
-      ```
-      classify.seqs(fasta=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=stability.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=../references/trainset14_032015.pds.fasta, taxonomy=../references/trainset14_032015.pds.tax, cutoff=80)
-      ```
-
-- We'll skip the Assessing error rates section
-
-Creating the distance matrix and doing the clustering are the time and memory intensive steps.
-
-Once you're done with these steps, you'll have a "shared" file. This is the file that's generated.
-
-**The shared file!**
-
-If something didn't work along the way, you can use this file for future steps.
-
-[stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared](stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared)
-
-To get it on to your Amazon EC2 instance use:
-
-```
-curl -o stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared https://raw.githubusercontent.com/tracykteal/mothur-tutorial/gh-pages/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared  
-```
 
 ### Working with the OTU table (the shared file)
 
-Once we create the shared file, there are several things we can do.
-Let's take a look at the shared file though. Let's open it in Excel.
+Once we create the shared file, there are several things we can do. First we can download this file to our local computers.
+
+Now let's take a look at the shared file. Let's open it in Excel.
 [stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared](img/stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared)
 
 Let's also look at the list file  
@@ -228,19 +111,7 @@ There's been a lot of discussion of what to do with the raw counts:
 - mixed model
 - something else
 
-For this lesson we're going to subsample
-
-See how many sequences we have  
-   `count.groups()`
-
-Lowest is 2451, so we'll subsample to that size  
-   `sub.sample(shared=stability.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.an.unique_list.shared, size=2451)`  
-Now we have a new shared file that has been subsampled. If we did the subsampling again, we'd actually get a different new shared file.  
-
-** Exercise
-
-Go ahead and try it. Open up your new shared file. Rerun the subsampling and see if the re-subsampled one looks the same.
-
+For this lesson we have subsampled. When we subsample, things will look different each time. Compare your 'shared' file with that of your neighbors. Are they the same?
 
 ### Others things to do with mothur (if you're really working with it)
 
@@ -286,8 +157,7 @@ We have one of those files already in our data directory: stability.batch
 When you're doing this the fact that mothur remembers what files you used last is great, because
 you don't have to type it all out.
 
-Let's try making our own. On Mac you can use nano or emacs. On PC you can use something in MobaXterm
-or SublimeText.
+Let's try making our own. We'll go back on the server and use **nano**.
 
 Put the first couple of commands we run in to a file, along with comments about what we are doing.
 
@@ -302,7 +172,9 @@ We're using the 'full path' of the file names here so there's no confusion.
 
 ### Looking at some of this data
 
-PAST - a GUI statistical package developed by Oyvind Hammer  
+You have been working in R already, so there's a lot of ways you can work with the data there. 
+
+There is also PAST - a GUI statistical package developed by Oyvind Hammer.  
 [http://folk.uio.no/ohammer/past/](http://folk.uio.no/ohammer/past/)
 
 
